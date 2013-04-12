@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Data</title>
+	<link rel="stylesheet" type="text/css" href="./css/style.css" media="screen" />
+</head>
+
+<body>
+
+	<canvas id="canvas"></canvas>
+
+	<script type="text/javascript" src="./js/util.js"></script>
+	<script type="text/javascript" src="./js/seismometer.js"></script>
+
+  <script type="text/javascript">
+
+    var ws = new WebSocket("ws://localhost:8080/");
+
+    var buffer = []
+
+    ws.onmessage = function(evt) {
+      var data = evt.data.split("\t").map(function(s) { return parseInt(s) })
+
+      var number = data[0] / 1023 * 6
+
+      buffer.unshift(number)
+
+      if (buffer.length > 164) {
+        buffer.pop();
+      }
+
+      Seismometer.update( buffer );
+    }
+
+    ws.onclose   = function() { console.log("socket closed"); };
+    ws.onopen    = function() {
+      console.log("connected...");
+      ws.send("ping");
+    };
+
+    /*
+    var ticker = setInterval(function() {
+      if (ws.bufferedAmount == 0) ws.send("ping")
+    }, 100)
+    */
+
+  </script>
+
+</body>
+
+</html>
