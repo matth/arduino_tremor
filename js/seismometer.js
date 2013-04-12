@@ -1,7 +1,7 @@
 var Seismometer = function() {
 
-	var height = 180,
-		width  = 260,
+	var height = 500,
+		width  = 1500,
 		data = [],
 		line,
 		canvas = document.getElementById("canvas"),
@@ -9,6 +9,9 @@ var Seismometer = function() {
 		img1_pos = 0,
 		img2_pos = -164,
 		axis = 'y';
+
+    canvas.height = 500;
+    canvas.width = 1500;
 
 	// Image
     var img1 = new Image();
@@ -33,9 +36,9 @@ var Seismometer = function() {
 		ctx.moveTo(140, 0);
 		
 		// Move images
-       	ctx.drawImage(img1, 2, img1_pos++);
-       	ctx.drawImage(img2, 2, img2_pos++);
-      	ctx.drawImage(paper_effect, 2, 0);
+//       	ctx.drawImage(img1, 2, img1_pos++);
+//       	ctx.drawImage(img2, 2, img2_pos++);
+//      	ctx.drawImage(paper_effect, 2, 0);
 
 		// Loop them
 		if (img1_pos >= 164) img1_pos = -164;

@@ -32,7 +32,7 @@ begin
     #  ws.send data
     #end
 
-    ws.onclose   { puts "WebSocket closed" }
+    ws.onclose   { timer.cancel }
   end
 
 rescue Exception => e
